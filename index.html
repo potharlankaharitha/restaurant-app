@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tasty Bites - Restaurant App</title>
+<style>
+body{font-family:Arial;background:#fff8f0;margin:0;padding:20px}
+h1{text-align:center;color:#e65100}
+.menu{display:flex;gap:15px;flex-wrap:wrap;justify-content:center}
+.card{background:white;padding:15px;border-radius:12px;width:200px;box-shadow:0 2px 8px #ddd;text-align:center}
+button{background:#e65100;color:white;border:none;padding:8px 15px;border-radius:8px;cursor:pointer}
+#cart{max-width:500px;margin:20px auto;background:white;padding:15px;border-radius:12px}
+</style>
+</head>
+<body>
+<h1>🍔 Tasty Bites Restaurant</h1>
+<p style="text-align:center">Browse Menu, Add to Cart, Place Order</p>
+
+<div class="menu">
+<div class="card"><h3>Veg Biryani</h3><p>₹180</p><button onclick="add('Veg Biryani',180)">Add +</button></div>
+<div class="card"><h3>Chicken Biryani</h3><p>₹250</p><button onclick="add('Chicken Biryani',250)">Add +</button></div>
+<div class="card"><h3>Paneer Pizza</h3><p>₹220</p><button onclick="add('Paneer Pizza',220)">Add +</button></div>
+<div class="card"><h3>Masala Dosa</h3><p>₹90</p><button onclick="add('Masala Dosa',90)">Add +</button></div>
+</div>
+
+<div id="cart">
+<h2>Your Cart 🛒</h2>
+<p id="items">No items yet</p>
+<h3 id="total">Total: ₹0</h3>
+<button onclick="placeOrder()">Place Order</button>
+<p id="msg" style="color:green;font-weight:bold"></p>
+</div>
+
+<script>
+let cart=[]; let total=0;
+function add(name,price){
+  cart.push(name); total+=price;
+  document.getElementById('items').innerText = cart.join(', ');
+  document.getElementById('total').innerText = 'Total: ₹' + total;
+  localStorage.setItem('lastCart', JSON.stringify(cart));
+}
+function placeOrder(){
+  if(cart.length==0){ alert('Please add items first'); return; }
+  document.getElementById('msg').innerText = 'Order Placed Successfully! Order ID: #' + Math.floor(Math.random()*1000);
+  cart=[]; total=0;
+}
+</script>
+</body>
+</html>
